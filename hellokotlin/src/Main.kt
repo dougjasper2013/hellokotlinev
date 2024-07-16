@@ -4,11 +4,23 @@ fun main() {
     val name = "Kotlin"
     //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
     // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+    println("Hello, " + name + "!") // print greeting
 
     for (i in 1..5) {
         //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
         // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+        println("i = $i") // in Swift "1 = /(i)"
     }
+
+    println(24 / 3)
+    println(1 / 2)
+    println(1.0 / 2.0)
+    println(1.0 / 2)
+    println(1 / 2.0)
+    println(5 + 3 * 4 * 2 - 6 / 3 + 1)
+    // 5 + 12 * 2 - 6 / 3 + 1
+    // 5 + 24 - 6 / 3 + 1
+    // 5 + 24 - 2 + 1 = 28
+
+
 }
