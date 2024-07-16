@@ -49,11 +49,41 @@ fun main() {
     println("counter is $counter")
 
     counter-- // decrements by 1
-    println("counter is $counter")
+
+    var integer: Int = 100
+    println("integer is $integer")
+    var decimal: Double = 12.8
+    println("decimal is $decimal")
+    integer = decimal.toInt()
+
+    println("integer is $integer")
 
     // other shorthand notation
     // such as counter *= 2
-    
+
+    var x:Double = 5.2
+    var y:Int = 3
+
+    var z = y + x
+    println("z is $z")
+
+    val bigString = """
+  |You can have 
+  |a string
+  |that contains multiple
+  |lines
+  |another test
+  |by
+  |doing this.
+  """.trimMargin()
+    println(bigString)
+
+   val newString = "Hello\nMyname is\nJoe"
+   println(newString)
+
+
+
+
 
 
 
