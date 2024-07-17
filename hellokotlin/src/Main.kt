@@ -99,8 +99,40 @@ fun main() {
         else -> println("Non-zero")
     }
 
+    printMyName("Daffy", "Duck") // calling the function
+    printMyName()
+
+    var result: Int? = null
+    // var resultPlusOne = result + 1
+
+    var nullableResult: Int?
+    var nonNullableResult: Int = 0
+
+    if (result != null)
+    {
+        nonNullableResult = result
+    }
+    else
+    {
+        nullableResult = result
+    }
+
+    println(nonNullableResult + 1)
+
+    var result2: Int? = 10
+    var mustHaveResult = result2 ?: 0
+    println(mustHaveResult + 1)
+
+
 
 }
+
+fun printMyName(firstName: String = "Bugs", lastName: String = "Bunny") { // defining the function
+    println("My name is $firstName $lastName.")
+}
+
+
+
 
 
 
