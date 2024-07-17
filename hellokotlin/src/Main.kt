@@ -79,14 +79,27 @@ fun main() {
     println(bigString)
 
    val newString = "Hello\nMyname is\nJoe"
+
+
    println(newString)
 
+    val alsoTrue = !(1 == 2) // ! means not
+    println(alsoTrue)
 
-
-
-
-
-
-
+    var sum: Int = 0
+    while (sum < 100) {
+        sum = sum + sum + 1
+        println(sum)
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
