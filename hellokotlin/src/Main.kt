@@ -92,6 +92,14 @@ fun main() {
         println(sum)
     }
 
+    val number = 0
+
+    when (number) {
+        0 -> println("Zero")
+        else -> println("Non-zero")
+    }
+
+
 }
 
 
