@@ -123,12 +123,76 @@ fun main() {
     var mustHaveResult = result2 ?: 0
     println(mustHaveResult + 1)
 
+    var items = arrayOf(5, 3, 7, 2)
+    println(items[2])
+
+    val vowels = Array(5, {2})
+    println(vowels[4])
+    println(vowels[0])
+    vowels[4] = 7
+    println(vowels[4])
+
+    val items2 = arrayOf(5, 3.47, "Fred", "Joe")
+    println(items2[1])
+    println(items2[3])
+
+    for(item in items2)
+    {
+        println(item)
+    }
+
+    items2.forEach { item ->
+       println(item)
+    }
+
+    //val courses = mutableListOf("Android")
+
+    val courses: MutableList<String> = mutableListOf()
+
+    courses.add("Android")
+    courses.add("IOS")
+    courses.add("Java")
+    courses.add(1, "Data Modelling")
+
+    println(courses.first())
+    println(courses.last())
+    println(courses[1]) // should be Data Modelling
+
+    var index: Int = courses.indexOf("Data Modelling")
+    courses.removeAt(index)
+    println(courses[1]) // should be IOS
+
+    for (course in courses)
+    {
+        println(course)
+    }
+
+    courses.forEach { course ->
+        println(course)
+    }
+
+    println(fibonacci(5))
+    println(fibonacci(7))
+    println(fibonacci(10))
 
 
 }
 
 fun printMyName(firstName: String = "Bugs", lastName: String = "Bunny") { // defining the function
     println("My name is $firstName $lastName.")
+}
+
+fun fibonacci(number: Int): Int
+{
+    if (number <= 0)
+    {
+        return 0
+    }
+    if (number == 1 || number == 2)
+    {
+        return 1
+    }
+    return fibonacci(number - 1) + fibonacci(number - 2)
 }
 
 
