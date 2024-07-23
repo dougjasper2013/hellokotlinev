@@ -1,3 +1,5 @@
+import kotlin.math.roundToInt
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 const val outsideConst: Double = 5.236
@@ -175,7 +177,89 @@ fun main() {
     println(fibonacci(7))
     println(fibonacci(10))
 
+    val john = Person(firstName = "Johnny", lastName = "Appleseed",
+        phone = "555-555-5555")
 
+    println(john.fullName)
+    println(john.contactInfo)
+
+    var var1 = SimplePerson(name = "John")
+
+    var var2 = var1
+
+    println(var2.name)
+    var2.name = "Jane"
+
+    println(var1.name)
+
+    var homeOwner = john
+    john.firstName = "John"
+
+    println(john.firstName)      // > John
+    println(homeOwner.firstName) // > John
+
+    homeOwner.firstName = "Jane"
+
+    println(john.firstName)      // > John
+    println(homeOwner.firstName) // > John
+
+    println(homeOwner === john) // > true
+
+    val imposterJohn = Person(firstName = "John", lastName = "Appleseed",
+        phone= "444-444-4444")
+
+    println(john === homeOwner)
+    println(john === imposterJohn)
+
+    println(imposterJohn === homeOwner)
+
+    homeOwner = imposterJohn
+
+    println(john === homeOwner)
+    println(john === imposterJohn)
+
+    println(imposterJohn === homeOwner)
+
+    val jane = Student(firstName = "Jane", lastName = "Appleseed")
+    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    var math = Grade(letter = "A", points = 16.0, credits = 4.0)
+
+    jane.recordGrade(history)
+    jane.recordGrade(math)
+
+    println(jane.listGrades())
+
+    val contact = Contact(
+        fullName = "Grace Murray",
+        emailAddress = "grace@navy.mil"
+    )
+
+    val name1 = contact.fullName // Grace Murray
+    val email = contact.emailAddress // grace@navy.mil
+    println(name1)
+    println(email)
+
+    contact.fullName = "Grace Hopper"
+    val grace = contact.fullName // Grace Hopper
+    println(grace)
+
+    var c1 = Contact("John Doe", "jd@gmail.com")
+    println(c1.type)
+
+    var c2 = Contact("John Doe", "jd@gmail.com",
+        "Work")
+    println(c2.type)
+
+
+    println("Enter the height: ")
+    var h = readln().toDouble()
+
+    println("Enter the width: ")
+    var w = readln().toDouble()
+
+    val tv = TV(h, w)
+
+    println(tv.diagonal)
 }
 
 fun printMyName(firstName: String = "Bugs", lastName: String = "Bunny") { // defining the function
@@ -194,6 +278,68 @@ fun fibonacci(number: Int): Int
     }
     return fibonacci(number - 1) + fibonacci(number - 2)
 }
+
+class Person(var firstName: String, var lastName: String, var phone: String ) {
+    val fullName
+        get() = "$firstName $lastName"
+    val contactInfo
+        get() = "$firstName: $phone"
+
+}
+
+class SimplePerson(var name: String)
+{
+
+}
+
+class Grade(
+    val letter: String,
+    val points: Double,
+    val credits: Double
+)
+
+class Student(
+    val firstName: String,
+    val lastName: String,
+    val grades: MutableList<Grade> = mutableListOf(),
+    var credits: Double = 0.0
+) {
+
+    fun recordGrade(grade: Grade) {
+        grades.add(grade)
+        credits += grade.credits
+    }
+
+    fun listGrades(): String {
+        var list:String = ""
+        for(grade in grades)
+        {
+            list += grade.letter + " "
+        }
+        return list
+    }
+}
+
+class Contact(var fullName: String, var emailAddress: String,
+              var type: String = "Friend" )
+
+class TV(var height: Double, var width: Double) {
+    // 1
+    val diagonal: Int
+        get() {
+            // 2
+            val result = Math.sqrt(height * height + width * width)
+            // 3
+            return result.roundToInt()
+        }
+}
+
+
+
+
+
+
+
 
 
 
