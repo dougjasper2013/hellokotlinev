@@ -177,11 +177,10 @@ fun main() {
     println(fibonacci(7))
     println(fibonacci(10))
 
-    val john = Person(firstName = "Johnny", lastName = "Appleseed",
-        phone = "555-555-5555")
+    //val john = Person(firstName = "Johnny", lastName = "Appleseed", phone = "555-555-5555")
 
-    println(john.fullName)
-    println(john.contactInfo)
+    //println(john.fullName)
+    //println(john.contactInfo)
 
     var var1 = SimplePerson(name = "John")
 
@@ -192,42 +191,42 @@ fun main() {
 
     println(var1.name)
 
-    var homeOwner = john
-    john.firstName = "John"
+    //var homeOwner = john
+    //john.firstName = "John"
 
-    println(john.firstName)      // > John
-    println(homeOwner.firstName) // > John
+    //println(john.firstName)      // > John
+    //println(homeOwner.firstName) // > John
 
-    homeOwner.firstName = "Jane"
+    //homeOwner.firstName = "Jane"
 
-    println(john.firstName)      // > John
-    println(homeOwner.firstName) // > John
+    //println(john.firstName)      // > John
+    //println(homeOwner.firstName) // > John
 
-    println(homeOwner === john) // > true
+   // println(homeOwner === john) // > true
 
-    val imposterJohn = Person(firstName = "John", lastName = "Appleseed",
-        phone= "444-444-4444")
+    //val imposterJohn = Person(firstName = "John", lastName = "Appleseed",
+     //   phone= "444-444-4444")
 
-    println(john === homeOwner)
-    println(john === imposterJohn)
+    //println(john === homeOwner)
+    //println(john === imposterJohn)
 
-    println(imposterJohn === homeOwner)
+    //println(imposterJohn === homeOwner)
 
-    homeOwner = imposterJohn
+    //homeOwner = imposterJohn
 
-    println(john === homeOwner)
-    println(john === imposterJohn)
+    //println(john === homeOwner)
+    //println(john === imposterJohn)
 
-    println(imposterJohn === homeOwner)
+    //println(imposterJohn === homeOwner)
 
-    val jane = Student(firstName = "Jane", lastName = "Appleseed")
-    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    //val jane = Student(firstName = "Jane", lastName = "Appleseed")
+    //val history = Grade(letter = "B", points = 9.0, credits = 3.0)
     var math = Grade(letter = "A", points = 16.0, credits = 4.0)
 
-    jane.recordGrade(history)
-    jane.recordGrade(math)
+    //jane.recordGrade(history)
+    //jane.recordGrade(math)
 
-    println(jane.listGrades())
+    //println(jane.listGrades())
 
     val contact = Contact(
         fullName = "Grace Murray",
@@ -260,6 +259,41 @@ fun main() {
     val tv = TV(h, w)
 
     println(tv.diagonal)
+
+    val john = Person(firstName = "Johnny", lastName = "Appleseed")
+    val jane = Student(firstName = "Jane", lastName = "Appleseed")
+
+    println(john.fullName()) // Johnny Appleseed
+    println(jane.fullName()) // Jane Appleseed
+
+    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    jane.recordGrade(history)
+    //john.recordGrade(history) // john is not a student!
+
+    val bandMember = BandMember(
+        firstName = "Johnny",
+        lastName = "Appleseed"
+    )
+    val oboePlayer = OboePlayer(
+        firstName = "Jane",
+        lastName = "Appleseed"
+    )
+
+    println(bandMember.minimumPracticeTime)
+    println(oboePlayer.minimumPracticeTime)
+
+    var garfield = Cat("Mammal", "Tabby")
+    var odie= Dog("Mammal", "Collie")
+
+    garfield.makeNoise()
+    odie.makeNoise()
+
+    //var testAnimal = Animal("Bird")
+
+    var saxophonePlayer = SaxophonePlayer("Bugs", "Bunny")
+
+    var altoSaxPlayer = SaxophonePlayer("Daffy", "Duck", "Alto")
+
 }
 
 fun printMyName(firstName: String = "Bugs", lastName: String = "Bunny") { // defining the function
@@ -279,12 +313,9 @@ fun fibonacci(number: Int): Int
     return fibonacci(number - 1) + fibonacci(number - 2)
 }
 
-class Person(var firstName: String, var lastName: String, var phone: String ) {
-    val fullName
-        get() = "$firstName $lastName"
-    val contactInfo
-        get() = "$firstName: $phone"
-
+// 1
+open class Person(var firstName: String, var lastName: String) {
+    fun fullName() = "$firstName $lastName"
 }
 
 class SimplePerson(var name: String)
@@ -298,27 +329,48 @@ class Grade(
     val credits: Double
 )
 
-class Student(
-    val firstName: String,
-    val lastName: String,
-    val grades: MutableList<Grade> = mutableListOf(),
-    var credits: Double = 0.0
-) {
+// 2
+open class Student(
+    firstName: String,
+    lastName: String,
+    var grades: MutableList<Grade> = mutableListOf<Grade>()
+) : Person(firstName, lastName) {
 
-    fun recordGrade(grade: Grade) {
-        grades.add(grade)
-        credits += grade.credits
-    }
-
-    fun listGrades(): String {
-        var list:String = ""
-        for(grade in grades)
-        {
-            list += grade.letter + " "
-        }
-        return list
+    open fun recordGrade(grade: Grade) {
+        //grades.add(grade)
     }
 }
+
+open class BandMember(
+    firstName: String,
+    lastName: String
+) : Student(firstName, lastName) {
+    open val minimumPracticeTime: Int
+        get() { return  2 }
+}
+
+class OboePlayer(
+    firstName: String,
+    lastName: String
+): BandMember(firstName, lastName) {
+    // This is an example of an override, will be covered soon.
+    override val minimumPracticeTime: Int =
+        super.minimumPracticeTime * 2
+}
+
+class SaxophonePlayer(
+    firstName: String,
+    lastName: String
+): BandMember(firstName, lastName) {
+    constructor(firstName: String, lastName: String, saxType: String)
+            : this(firstName, lastName) {
+                        // ...
+    }
+    // This is an example of an override, will be covered soon.
+    override val minimumPracticeTime: Int =
+        super.minimumPracticeTime * 2
+}
+
 
 class Contact(var fullName: String, var emailAddress: String,
               var type: String = "Friend" )
@@ -332,6 +384,31 @@ class TV(var height: Double, var width: Double) {
             // 3
             return result.roundToInt()
         }
+}
+
+abstract open class Animal(
+    type: String
+)  {
+
+    abstract fun makeNoise()
+}
+
+open class Dog(type: String, breed: String)
+    : Animal(type)
+{
+    override fun makeNoise()
+    {
+        println("Woof, Woof, Woof")
+    }
+}
+
+open class Cat(type: String, breed: String)
+    : Animal(type)
+{
+    override fun makeNoise()
+    {
+        println("Meow")
+    }
 }
 
 
